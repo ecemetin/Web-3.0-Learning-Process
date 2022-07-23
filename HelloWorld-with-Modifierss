@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >= 0.7.0 <0.9.0;
+
+contract HelloWorld {
+    string text;
+    address public owner;
+
+    constructor() {
+        text = "Hello World";
+        owner = msg.sender;
+    }
+    modifier onlyOwner(){
+        require(msg.sender == owner, "Caller is not the owner");
+        _;
+
+    }
+    function setText(string calldata _text) public onlyOwner {
+        text = _text;
+
+    }
+
+    function transferOwnership (address newOwner) public onlyOwner {
+        owner = newOwner;
+
+    }
+    function helloWorld() public view returns (string memory) {
+        return text;
+    }
+}
